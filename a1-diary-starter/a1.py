@@ -5,11 +5,9 @@
 # Connor Ng
 # ngce@uci.edu
 # ngce
-# remember to ask about what -n does
 # Command C Test Input: C "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/" -n "my_diary"
-
-# Command D Test Input: D "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary3.jso"
-# /Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary3.json
+# Command D Test Input: D "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary7.json"
+# Command O Test INput: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary6.json"
 
 
 
@@ -27,6 +25,8 @@ def main():
             command_parser.create_notebook(info[1].strip(), info[3].strip())
         if command_str.startswith("D "):
             command_parser.delete_notebook(info[1].strip())
+        if command_str.startswith("O "):
+            command_parser.load_notebook(info[1].strip())
 
 
 if __name__ == "__main__":

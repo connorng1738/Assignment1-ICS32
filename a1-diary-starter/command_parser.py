@@ -65,16 +65,8 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
     bio = input("Please describe your bio:\n")
 
     notebook = Notebook(username, password, bio)
-
-    notebook_data = {
-        'username': notebook.username,
-        'password': notebook.password,
-        'bio': notebook.bio
-    }
-
-    with open(notebook_path, 'w') as f:
-        json.dump(notebook_data, f, indent=4)
-        print(f"{notebook_path} CREATED")
+    notebook.save(notebook_path)
+    print(f"{notebook_path} CREATED")
 
 
 def delete_notebook(notebook_file: str) -> str:
@@ -98,8 +90,13 @@ def delete_notebook(notebook_file: str) -> str:
         print(f'{path} DELETED')
 
 
-def load_notebook(command):
-    pass
+def load_notebook(notebook_path):
+    print(notebook_path) 
+    path = Path(notebook_path)
+
+    
+
+
 
 
 def edit_notebook(command):
