@@ -11,12 +11,13 @@ from pathlib import Path
 from notebook import Notebook
 import json
 
-def parse_command(command: str) -> list: 
+
+def parse_command(command: str) -> list:
     """
     Parses given input using shlex module
 
     Arguments:
-      command: User input in the following format: [COMMAND] [INPUT] [[-]OPTION] [INPUT]
+      command: User input in the following format: [COMMAND] [INPUT] [[-]OPTION] [INPUT] #probably ask about this docstring as well
 
     Returns:
       parsed info in a list
@@ -25,6 +26,13 @@ def parse_command(command: str) -> list:
     info = shlex.split(command)
     return info
 
+def check_file():
+    pass
+
+def is_json_file():
+    pass
+
+
 def create_notebook(notebook_path: str, notebook_name: str) -> str:
     """
     Creates a notebook given a name and a path.
@@ -32,16 +40,15 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
     Arguments:
       notebook_path: The path to create the notebook
       notebook_name: The name of the notebook to be created in the `notebook_path`
-    
+
     Returns:
      A string that represents operation status
     """
 
-    #path = info[1]
     print(f"Path: {notebook_path}")
-    #notebook_name = info[3]
+
     print(f"Notebook_name: {notebook_name}")
-    
+
     directory = Path(notebook_path)
     print(directory)
     if not directory.exists() or not directory.is_dir():
@@ -58,7 +65,7 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
     bio = input("Please describe your bio:\n")
 
     notebook = Notebook(username, password, bio)
-    
+
     notebook_data = {
         'username': notebook.username,
         'password': notebook.password,
@@ -66,23 +73,38 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
     }
 
     with open(notebook_path, 'w') as f:
-        json.dump(notebook_data, f, indent = 4)
-        print(f"{notebook_path} C")
+        json.dump(notebook_data, f, indent=4)
+        print(f"{notebook_path} CREATED")
 
 
-def delete_notebook(command):
-    pass
+def delete_notebook(notebook_file: str) -> str:
+    """
+    Deletes a notebook given user input
+
+    Arguments:
+    notebook_file: a user-specified file 
+    
+
+    Returns: 
+    A string that represents operation status
+    """
+    path = Path(notebook_file)
+        
+    while not path.exists() or not path.is_file() or path.suffix != ".json":
+        print("ERROR")
+        path = Path(input('Please enter the proper file name: \n')) 
+    else:
+        path.unlink()
+        print(f'{path} DELETED')
+
 
 def load_notebook(command):
     pass
 
+
 def edit_notebook(command):
     pass
 
+
 def print_notebook_info(command):
     pass
-
-
-
-
-
