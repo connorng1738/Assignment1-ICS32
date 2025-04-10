@@ -7,7 +7,7 @@
 # ngce
 # Command C Test Input: C "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/" -n "my_diary"
 # Command D Test Input: D "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary7.json"
-# Command O Test INput: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary6.json"
+# Command O Test Input: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary.jso"
 
 
 

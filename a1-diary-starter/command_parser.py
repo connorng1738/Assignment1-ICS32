@@ -90,15 +90,35 @@ def delete_notebook(notebook_file: str) -> str:
         print(f'{path} DELETED')
 
 
-def load_notebook(notebook_path):
-    print(notebook_path) 
+def load_notebook(notebook_path: str) -> str:
+    """
+    Given user input, loads an existing notebook
+
+    Arguments:
+    notebook_path: absolute or relative path of a notebook
+
+    Return:
+    A string that represents operation status #Ask about how i can be more specific about what it returns? Should i mention specific errors?
+    
+    """
     path = Path(notebook_path)
 
+    if path.exists() and path.suffix == ".json":
+        with path.open("r") as f:
+            data = json.load(f) #does this properly instantiate a notebook object and use the proper method to load the notebook info
+
+        username = input("Please enter the notebook's username:\n")
+        password = input("Please enter the notebook's password:\n")
+
+        if username == data["username"] and password == data["password"]:
+            print("Notebook loaded.")
+            print(username)
+            print(password)
+        else:
+            print("ERROR")
+    else:
+        print("ERROR") #probably ask about how I should handle being given the wrong notebook_path
     
-
-
-
-
 def edit_notebook(command):
     pass
 
