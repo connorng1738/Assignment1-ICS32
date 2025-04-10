@@ -26,13 +26,6 @@ def parse_command(command: str) -> list:
     info = shlex.split(command)
     return info
 
-def check_file():
-    pass
-
-def is_json_file():
-    pass
-
-
 def create_notebook(notebook_path: str, notebook_name: str) -> str:
     """
     Creates a notebook given a name and a path.
@@ -49,8 +42,20 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
 
     print(f"Notebook_name: {notebook_name}")
 
+   #base_path = Path.cwd()
+   # print(f"Base_path: {base_path}
+
     directory = Path(notebook_path)
-    print(directory)
+    print(f"Directory: {directory}")
+    if directory.is_absolute():
+        notebook_path = directory / f"{notebook_name}.json"
+    else:
+        home_directory = Path.home()
+        absolute_path = home_directory / directory.resolve()
+        notebook_path = absolute_path / f"{notebook_name}.json"
+        print(f"Absolute path: {absolute_path}") 
+
+    
     if not directory.exists() or not directory.is_dir():
         print("ERROR: Directory does not exist")
         return
