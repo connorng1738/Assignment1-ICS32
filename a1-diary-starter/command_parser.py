@@ -5,9 +5,10 @@
 # Connor Ng
 # ngce@uci.edu
 # ngce
-# C "  /Users/conner/Downloads/ICS 32/Assignment1-ICS32/   " -n "  my_diary  "
+# C "  /Users/conner/Downloads/ICS 32/Assignment1-ICS32/   " -n "  my_diary  "pyc
 import shlex
 from pathlib import Path
+import os
 from notebook import Notebook
 import json
 
@@ -26,6 +27,7 @@ def parse_command(command: str) -> list:
     info = shlex.split(command)
     return info
 
+
 def create_notebook(notebook_path: str, notebook_name: str) -> str:
     """
     Creates a notebook given a name and a path.
@@ -42,25 +44,14 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
 
     print(f"Notebook_name: {notebook_name}")
 
-   #base_path = Path.cwd()
-   # print(f"Base_path: {base_path}
-
     directory = Path(notebook_path)
-    print(f"Directory: {directory}")
-    if directory.is_absolute():
-        notebook_path = directory / f"{notebook_name}.json"
-    else:
-        home_directory = Path.home()
-        absolute_path = home_directory / directory.resolve()
-        notebook_path = absolute_path / f"{notebook_name}.json"
-        print(f"Absolute path: {absolute_path}") 
+    notebook_path = directory / f"{notebook_name}.json"
+    print(notebook_path)
 
-    
     if not directory.exists() or not directory.is_dir():
         print("ERROR: Directory does not exist")
         return
 
-    notebook_path = directory / f"{notebook_name}.json"
     if notebook_path.exists():
         print("ERROR: Path already exists")
         return
@@ -80,16 +71,16 @@ def delete_notebook(notebook_file: str) -> str:
 
     Arguments:
     notebook_file: a user-specified file 
-    
+
 
     Returns: 
     A string that represents operation status
     """
     path = Path(notebook_file)
-        
+
     while not path.exists() or not path.is_file() or path.suffix != ".json":
         print("ERROR")
-        path = Path(input('Please enter the proper file name: \n')) 
+        path = Path(input('Please enter the proper file name: \n'))
     else:
         path.unlink()
         print(f'{path} DELETED')
@@ -104,13 +95,14 @@ def load_notebook(notebook_path: str) -> str:
 
     Return:
     A string that represents operation status #Ask about how i can be more specific about what it returns? Should i mention specific errors?
-    
+
     """
     path = Path(notebook_path)
 
     if path.exists() and path.suffix == ".json":
         with path.open("r") as f:
-            data = json.load(f) #does this properly instantiate a notebook object and use the proper method to load the notebook info
+            # does this properly instantiate a notebook object and use the proper method to load the notebook info
+            data = json.load(f)
 
         username = input("Please enter the notebook's username:\n")
         password = input("Please enter the notebook's password:\n")
@@ -122,8 +114,10 @@ def load_notebook(notebook_path: str) -> str:
         else:
             print("ERROR")
     else:
-        print("ERROR") #probably ask about how I should handle being given the wrong notebook_path
-    
+        # probably ask about how I should handle being given the wrong notebook_path
+        print("ERROR")
+
+
 def edit_notebook(command):
     pass
 
