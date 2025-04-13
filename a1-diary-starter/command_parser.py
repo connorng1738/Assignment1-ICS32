@@ -8,8 +8,7 @@
 # C "  /Users/conner/Downloads/ICS 32/Assignment1-ICS32/   " -n "  my_diary  "pyc
 import shlex
 from pathlib import Path
-import os
-from notebook import Notebook
+from notebook import Notebook, Diary
 import json
 
 
@@ -28,7 +27,7 @@ def parse_command(command: str) -> list:
     return info
 
 
-def create_notebook(notebook_path: str, notebook_name: str) -> str:
+def create_notebook(notebook_path: str, notebook_name: str):
     """
     Creates a notebook given a name and a path.
 
@@ -46,15 +45,14 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
 
     directory = Path(notebook_path)
     notebook_path = directory / f"{notebook_name}.json"
-    print(notebook_path)
 
     if not directory.exists() or not directory.is_dir():
         print("ERROR: Directory does not exist")
-        return
+        return None
 
-    if notebook_path.exists():
+    if notebook_path.exists(): #why is this greyed out
         print("ERROR: Path already exists")
-        return
+        return None #fix these return statements so they prompt user again later
 
     username = input("Please enter your username:\n")
     password = input("Please enter your password:\n")
@@ -64,8 +62,10 @@ def create_notebook(notebook_path: str, notebook_name: str) -> str:
     notebook.save(notebook_path)
     print(f"{notebook_path} CREATED")
 
+    return notebook_path, notebook
 
-def delete_notebook(notebook_file: str) -> str:
+
+def delete_notebook(notebook_file: str):
     """
     Deletes a notebook given user input
 
@@ -86,7 +86,7 @@ def delete_notebook(notebook_file: str) -> str:
         print(f'{path} DELETED')
 
 
-def load_notebook(notebook_path: str) -> str:
+def load_notebook(notebook_path: str):
     """
     Given user input, loads an existing notebook
 
@@ -108,19 +108,53 @@ def load_notebook(notebook_path: str) -> str:
         password = input("Please enter the notebook's password:\n")
 
         if username == data["username"] and password == data["password"]:
+            notebook = Notebook(data["username"], data["password"], data["bio"])
             print("Notebook loaded.")
-            print(username)
-            print(password)
+            return notebook, path
+        else:
+            print("ERROR: Wrong info")
+    else:
+        print("ERROR: Could not load notebook")
+        
+            
+    '''for d in data["_diaries"]:
+        notebook.add_diary(Diary(d["entry"], d["timestamp"]))
+            print("Notebook loaded.")
+            return notebook
         else:
             print("ERROR")
+            return None
     else:
         # probably ask about how I should handle being given the wrong notebook_path
         print("ERROR")
+        return None'''
+    
 
 
-def edit_notebook(command):
-    pass
-
-
+def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
+    print(command) #this should print a list of the commands and user info
+    
+    for i in range(0, len(command),2):
+        if(command[i] == "-usr"):
+            notebook.username = str(command[i + 1])
+        elif(command[i] == "-pwd"):
+            notebook.password = str(command[i + 1])
+        elif(command[i] == "-bio"):
+            notebook.bio = str(command[i + 1])
+        elif(command[i] == "-add"):
+            pass
+        elif(command[i] == "-del"):
+            pass
+        else:
+            print("ERROR")
+    try:
+        notebook.save(notebook_path)
+        print("Notebook saved")
+    except:
+        print("Notebook did not save")
+    
+        
+        
+ 
 def print_notebook_info(command):
     pass

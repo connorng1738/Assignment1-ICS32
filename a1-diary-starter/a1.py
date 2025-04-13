@@ -15,18 +15,35 @@ import command_parser
 
 
 def main():
+    current_notebook = None
+    notebook_path = None
+
     while True:
         command_str = input("")
         info = command_parser.parse_command(command_str)
 
+        #notebook_loaded = False
+        #print(f"Notebook Loaded Status: {notebook_loaded}")
+
         if command_str == "Q":
             break
-        if command_str.startswith("C "):
-            command_parser.create_notebook(info[1].strip(), info[3].strip())
-        if command_str.startswith("D "):
+
+        elif command_str.startswith("C "):
+            current_notebook, notebook_path = command_parser.create_notebook(info[1].strip(), info[3].strip())
+            
+        elif command_str.startswith("D "):
             command_parser.delete_notebook(info[1].strip())
-        if command_str.startswith("O "):
-            command_parser.load_notebook(info[1].strip())
+
+        elif command_str.startswith("O "):
+            current_notebook, notebook_path = command_parser.load_notebook(info[1].strip())
+            
+        elif command_str.startswith("E "):
+            if current_notebook:
+                command_parser.edit_notebook(current_notebook, notebook_path, info[1:])
+            else:
+                print("ERROR: No notebook loaded")
+        else:
+            print("ERROR: Invalid command.")
 
 
 if __name__ == "__main__":
