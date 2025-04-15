@@ -5,7 +5,7 @@
 # Connor Ng
 # ngce@uci.edu
 # ngce
-# C "  /Users/conner/Downloads/ICS 32/Assignment1-ICS32/   " -n "  my_diary  "pyc
+
 import shlex
 from pathlib import Path
 from notebook import Notebook, Diary
@@ -122,7 +122,7 @@ def load_notebook(notebook_path: str):
 
 def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
     print(command) #this should print a list of the commands and user info
-    
+    diary = Diary()
     
 
     for i in range(0, len(command),2):
@@ -133,11 +133,10 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
         elif(command[i] == "-bio"):
             notebook.bio = str(command[i + 1])
         elif(command[i] == "-add"):
-            diary = Diary()
             diary.set_entry(str(command[i + 1]))
             notebook.add_diary(diary)
         elif(command[i] == "-del"):
-            pass
+            notebook.del_diary(int(command[i + 1]))
         else:
             print("ERROR")
     try:
@@ -146,8 +145,6 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
     except:
         print("Notebook did not save")
     
-        
-        
- 
+    
 def print_notebook_info(command):
     pass
