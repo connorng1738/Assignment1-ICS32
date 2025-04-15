@@ -8,7 +8,8 @@
 # Command C Test Input: C "/Users/conner/Downloads/ICS 32/Assignment1-ICS32" -n "my_diary"
 # Command C Test Input: C "/Assignment1-ICS32/a1-diary-starter" -n my_diary2
 # Command D Test Input: D "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary5.json"
-# Command O Test Input: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary1.json"
+# Command O Test Input: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary.json"
+# Command E Test Input: E -add "I had such a cool day at Six Flags with my friends"
 
 
 import command_parser

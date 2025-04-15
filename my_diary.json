@@ -1,6 +1,11 @@
 {
-    "username": "john",
-    "password": "john123",
+    "username": "username change",
+    "password": "password change",
     "bio": "monkey",
-    "_diaries": []
+    "_diaries": [
+        {
+            "entry": "I had such a cool day at Six Flags with my friends",
+            "timestamp": 1744649952.6897569
+        }
+    ]
 }

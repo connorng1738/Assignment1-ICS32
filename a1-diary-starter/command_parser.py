@@ -116,24 +116,15 @@ def load_notebook(notebook_path: str):
     else:
         print("ERROR: Could not load notebook")
         
-            
-    '''for d in data["_diaries"]:
-        notebook.add_diary(Diary(d["entry"], d["timestamp"]))
-            print("Notebook loaded.")
-            return notebook
-        else:
-            print("ERROR")
-            return None
-    else:
-        # probably ask about how I should handle being given the wrong notebook_path
-        print("ERROR")
-        return None'''
+         
     
 
 
 def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
     print(command) #this should print a list of the commands and user info
     
+    
+
     for i in range(0, len(command),2):
         if(command[i] == "-usr"):
             notebook.username = str(command[i + 1])
@@ -142,7 +133,9 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
         elif(command[i] == "-bio"):
             notebook.bio = str(command[i + 1])
         elif(command[i] == "-add"):
-            pass
+            diary = Diary()
+            diary.set_entry(str(command[i + 1]))
+            notebook.add_diary(diary)
         elif(command[i] == "-del"):
             pass
         else:
