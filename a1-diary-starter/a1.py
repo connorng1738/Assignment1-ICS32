@@ -50,7 +50,7 @@ def main():
             else:
                 print("ERROR: No notebook loaded")
         else:
-            print("ERROR: Invalid command.")
+            print("ERROR")
 
 
 if __name__ == "__main__":

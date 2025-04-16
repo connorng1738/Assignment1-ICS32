@@ -39,10 +39,6 @@ def create_notebook(notebook_path: str, notebook_name: str):
     A notebook object and the filepath of the notebook
     """
 
-    print(f"Path: {notebook_path}")
-
-    print(f"Notebook_name: {notebook_name}")
-
     directory = Path(notebook_path)
     notebook_path = directory / f"{notebook_name}.json"
 
@@ -50,17 +46,19 @@ def create_notebook(notebook_path: str, notebook_name: str):
         print("ERROR: Directory does not exist")
         return None
 
-    if notebook_path.exists(): #why is this greyed out
+    if notebook_path.exists(): 
         print("ERROR: Path already exists")
         return None #fix these return statements so they prompt user again later
 
-    username = input("Please enter your username:\n")
-    password = input("Please enter your password:\n")
-    bio = input("Please describe your bio:\n")
+    print(f"{notebook_path} CREATED")
+    
+    username = input("")
+    password = input("")
+    bio = input("")
 
     notebook = Notebook(username, password, bio)
     notebook.save(notebook_path)
-    print(f"{notebook_path} CREATED")
+    
 
     return notebook_path, notebook
 
@@ -100,14 +98,17 @@ def load_notebook(notebook_path: str):
     path = Path(notebook_path)
 
     if path.exists() and path.suffix == ".json":
+        username = input("")
+        password = input("")
         notebook = Notebook("","","")
         notebook.load(path)
 
-        username = input("Please enter the notebook's username:\n")
-        password = input("Please enter the notebook's password:\n")
+        
 
         if username == notebook.username and password == notebook.password:
             print("Notebook loaded.")
+            print(notebook.username)
+            print(notebook.bio)
             return notebook, path
         else:
             print("ERROR: Wrong info")
@@ -126,7 +127,6 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
     Returns:
     A string that represents operation status
     """
-    print(command) #this should print a list of the commands and user info
 
     for i in range(0, len(command),2):
         if(command[i] == "-usr"):
@@ -142,11 +142,9 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
             notebook.del_diary(int(command[i + 1]))
         else:
             print("ERROR")
-    try: 
-        notebook.save(notebook_path)
-        print("Notebook saved")
-    except:
-        print("Notebook did not save")
+    
+    notebook.save(notebook_path)
+
        
     
 def print_notebook_info(notebook: Notebook, command: list):
@@ -171,4 +169,3 @@ def print_notebook_info(notebook: Notebook, command: list):
             print(notebook.bio)
             for index, diary in enumerate(notebook.get_diaries()):
                 print(f"{index}: {diary['entry']}")
-
