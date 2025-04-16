@@ -102,9 +102,6 @@ def load_notebook(notebook_path: str):
     if path.exists() and path.suffix == ".json":
         notebook = Notebook("","","")
         notebook.load(path)
-        #with path.open("r") as f:
-            # does this properly instantiate a notebook object and use the proper method to load the notebook info
-            #data = json.load(f)
 
         username = input("Please enter the notebook's username:\n")
         password = input("Please enter the notebook's password:\n")
@@ -163,11 +160,15 @@ def print_notebook_info(notebook: Notebook, command: list):
         if(command[i] == "-bio"):
             print(f"Bio: {notebook.bio}")
         if(command[i] == "-diaries"):
-            print(notebook.get_diaries())
             for index, diary in enumerate(notebook.get_diaries()):
-                print(index, diary["entry"])
-        if(command[i] == "-diary"):
-            pass
+                print(f"{index}: {diary['entry']}")
+        if(command[i].split()[0] == "-diary"):
+            index = int(command[i].split()[1])
+            print(f"{index}: {notebook.get_diaries()[index]['entry']}")
         if(command[i] == "-all"):
-            pass
+            print(notebook.username)
+            print(notebook.password)
+            print(notebook.bio)
+            for index, diary in enumerate(notebook.get_diaries()):
+                print(f"{index}: {diary['entry']}")
 

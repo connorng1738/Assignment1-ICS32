@@ -9,9 +9,9 @@
 # Command C Test Input: C "/Assignment1-ICS32/a1-diary-starter" -n my_diary2
 # Command D Test Input: D "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary5.json"
 # Command O Test Input: O "/Users/conner/Downloads/ICS 32/Assignment1-ICS32/my_diary.json"
-# Command E Test Input: E -add "ghi"
+# Command E Test Input: E -usr -pwd -
 # Command E Test Input: E -del 2
-# Command P Test Input: P -diaries
+# Command P Test Input: P "-diary 0"
 
 import command_parser
 
