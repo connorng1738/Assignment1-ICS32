@@ -91,8 +91,8 @@ class Notebook:
         self.password = password 
         self.bio = bio 
         self._diaries = []
-
     
+
     def add_diary(self, diary: Diary) -> None:
         """Accepts a Diary object as parameter and appends it to the diary list. Diaries 
         are stored in a list object in the order they are added. So if multiple Diary objects 

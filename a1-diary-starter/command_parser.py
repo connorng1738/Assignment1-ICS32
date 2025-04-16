@@ -36,7 +36,7 @@ def create_notebook(notebook_path: str, notebook_name: str):
       notebook_name: The name of the notebook to be created in the `notebook_path`
 
     Returns:
-     A string that represents operation status
+    A notebook object and the filepath of the notebook
     """
 
     print(f"Path: {notebook_path}")
@@ -94,36 +94,42 @@ def load_notebook(notebook_path: str):
     notebook_path: absolute or relative path of a notebook
 
     Return:
-    A string that represents operation status #Ask about how i can be more specific about what it returns? Should i mention specific errors?
+    A notebook object and the filepath of the notebook
 
     """
     path = Path(notebook_path)
 
     if path.exists() and path.suffix == ".json":
-        with path.open("r") as f:
+        notebook = Notebook("","","")
+        notebook.load(path)
+        #with path.open("r") as f:
             # does this properly instantiate a notebook object and use the proper method to load the notebook info
-            data = json.load(f)
+            #data = json.load(f)
 
         username = input("Please enter the notebook's username:\n")
         password = input("Please enter the notebook's password:\n")
 
-        if username == data["username"] and password == data["password"]:
-            notebook = Notebook(data["username"], data["password"], data["bio"])
+        if username == notebook.username and password == notebook.password:
             print("Notebook loaded.")
             return notebook, path
         else:
             print("ERROR: Wrong info")
     else:
         print("ERROR: Could not load notebook")
-        
-         
-    
-
 
 def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
-    print(command) #this should print a list of the commands and user info
-    diary = Diary()
+    """"
+    Edits a notebook given a command
     
+    Arguments:
+    notebook: instance of Notebook obkect
+    notebook_path: file path of notebook
+    command: list of commands given by user input
+
+    Returns:
+    A string that represents operation status
+    """
+    print(command) #this should print a list of the commands and user info
 
     for i in range(0, len(command),2):
         if(command[i] == "-usr"):
@@ -133,18 +139,35 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list):
         elif(command[i] == "-bio"):
             notebook.bio = str(command[i + 1])
         elif(command[i] == "-add"):
-            diary.set_entry(str(command[i + 1]))
-            notebook.add_diary(diary)
+            new_diary = command[i + 1 ]
+            notebook.add_diary(Diary(new_diary))
         elif(command[i] == "-del"):
             notebook.del_diary(int(command[i + 1]))
         else:
             print("ERROR")
-    try:
+    try: 
         notebook.save(notebook_path)
         print("Notebook saved")
     except:
         print("Notebook did not save")
+       
     
-    
-def print_notebook_info(command):
-    pass
+def print_notebook_info(notebook: Notebook, command: list):
+    diary = Diary()
+
+    for i in range(0, len(command)):
+        if(command[i] == "-usr"):
+            print(f"Username: {notebook.username}")
+        if(command[i] == "-pwd"):
+            print(f"Password: {notebook.password}")
+        if(command[i] == "-bio"):
+            print(f"Bio: {notebook.bio}")
+        if(command[i] == "-diaries"):
+            print(notebook.get_diaries())
+            for index, diary in enumerate(notebook.get_diaries()):
+                print(index, diary["entry"])
+        if(command[i] == "-diary"):
+            pass
+        if(command[i] == "-all"):
+            pass
+

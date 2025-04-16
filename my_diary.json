@@ -1,6 +1,23 @@
 {
-    "username": "username change",
-    "password": "password change",
+    "username": "u",
+    "password": "p",
     "bio": "monkey",
-    "_diaries": []
+    "_diaries": [
+        {
+            "entry": "ghi",
+            "timestamp": 1744776628.954603
+        },
+        {
+            "entry": "ghi",
+            "timestamp": 1744776645.2089028
+        },
+        {
+            "entry": "ghi",
+            "timestamp": 1744777305.349857
+        },
+        {
+            "entry": "ghi",
+            "timestamp": 1744777305.876996
+        }
+    ]
 }
