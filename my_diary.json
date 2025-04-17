@@ -1,27 +1,6 @@
 {
-    "username": "u",
-    "password": "p",
+    "username": "John",
+    "password": "123 456",
     "bio": "monkey",
-    "_diaries": [
-        {
-            "entry": "ghi",
-            "timestamp": 1744776628.954603
-        },
-        {
-            "entry": "ghi",
-            "timestamp": 1744776645.2089028
-        },
-        {
-            "entry": "ghi",
-            "timestamp": 1744777305.349857
-        },
-        {
-            "entry": "ghi",
-            "timestamp": 1744777305.876996
-        },
-        {
-            "entry": "ghi",
-            "timestamp": 1744777875.976429
-        }
-    ]
+    "_diaries": []
 }
