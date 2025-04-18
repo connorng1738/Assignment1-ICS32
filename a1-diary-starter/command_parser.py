@@ -14,7 +14,7 @@ def parse_command(command: str) -> list:
 
 
     Arguments:
-      command: User input in the following format: [COMMAND] [INPUT] [[-]OPTION] [INPUT]
+      command: User input including command and path
 
 
     Returns:
@@ -25,7 +25,9 @@ def parse_command(command: str) -> list:
     return info
 
 
-def create_notebook(notebook_path: str, notebook_flag: str, notebook_name: str) -> tuple:
+def create_notebook(notebook_path: str, 
+                    flag: str, 
+                    notebook_name: str) -> tuple:
     """
     Creates a notebook given a name and a path.
 
@@ -41,18 +43,15 @@ def create_notebook(notebook_path: str, notebook_flag: str, notebook_name: str) 
     directory = Path(notebook_path)
     notebook_path = directory / f"{notebook_name}.json"
 
-    if notebook_flag != "-n":
+    if flag != "-n":
         print("ERROR")
         return (None, None)
-    
     if notebook_name.strip() == "":
         print("ERROR")
         return (None, None)
-
     if not directory.exists() or not directory.is_dir():
         print("ERROR")
         return (None, None)
-
     if notebook_path.exists():
         print("ERROR")
         return (None, None)
@@ -113,7 +112,9 @@ def load_notebook(notebook_path: str) -> tuple:
             return notebook, path
 
 
-def edit_notebook(notebook: Notebook, notebook_path: Path, command: list) -> None:
+def edit_notebook(notebook: Notebook, 
+                  notebook_path: Path, 
+                  command: list) -> None:
     """"
     Edits a notebook given a command
 
@@ -121,7 +122,7 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list) -> Non
       notebook: Notebook object
       notebook_path: file path of notebook
       command: list of commands given by user input
-    
+
     Returns:
       NONE
 
@@ -147,7 +148,8 @@ def edit_notebook(notebook: Notebook, notebook_path: Path, command: list) -> Non
         notebook.save(notebook_path)
 
 
-def print_notebook_info(notebook: Notebook, command: list) -> None:
+def print_notebook_info(notebook: Notebook, 
+                        command: list) -> None:
     """"
     Prints notebook info
 
