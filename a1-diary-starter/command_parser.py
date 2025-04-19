@@ -110,7 +110,10 @@ def load_notebook(notebook_path: str) -> tuple:
             print(notebook.username)
             print(notebook.bio)
             return notebook, path
-
+        else:
+            print("ERROR: Wrong info")
+    else:
+        print("ERROR: Could not load notebook")
 
 def edit_notebook(notebook: Notebook, 
                   notebook_path: Path, 
